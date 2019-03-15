@@ -32,47 +32,37 @@ public class Quick{
       pivot = data[pindex];
     }
     // move it to the first index;
-    data[pindex] = data[lo];
-    data[lo] = pivot;
-    pindex = lo;
-
-    // set pivot index to the beginning and loop through the array
-    while (start != end){
-      if (data[start] > pivot){
-        int holder = data[start];
-        data[start] = data[end];
-        data[end] = holder;
-        end --;
-      }
-      else if (data[start] == pivot){
-        int nextInt = random.nextInt(2);
-        if (nextInt == 0){
-          int holder = data[start];
-          data[start] = data[end];
-          data[end] = holder;
-          end --;
-        }
-        else{
-          start++;
-        }
-      }
-      else{
-        start++;
-      }
-    }
-    //inserting pivot into original position
-    // if (data[start] > pivot){
-    //   data[pindex] = data[start - 1];
-    //   data[start - 1] = pivot;
-    //   pindex = start - 1;
-    // }
-    // else{
+    if (pindex != start){
       data[pindex] = data[start];
       data[start] = pivot;
       pindex = start;
-    // }
-    System.out.println(pivot + Arrays.toString(data));
-    return pindex;
+    }
+
+    // lo = start + 1;
+
+    while (lo != hi) {
+      if (data[lo] >= pivot){
+        if ((int)(Math.random() * 2) % 2 == 0) {
+        int n = data[lo];
+        data[lo] = data[hi];
+        data[hi] = n;
+        hi --;
+      }
+      else {
+        lo ++;
+      }
+    }
+
+    if (data[lo] > pivot) {
+      data[pindex] = data[lo - 1];
+      data[lo - 1] = pivot;
+      pindex = lo - 1;
+    }
+    else {
+      data[pindex] = data[lo];
+      data[lo] = pivot;
+      pindex = lo;
+    }
     // String output = "";
     // output += pivot + "|";
     // for(int i = 0; i < data.length; i++){
@@ -80,6 +70,8 @@ public class Quick{
     // }
     // return output;
   }
+  return pindex;
+}
 
 
   public static int quickselect(int[] data, int k){
@@ -87,11 +79,11 @@ public class Quick{
     int hi = data.length - 1;
     for (int i = 0 ; i <data.length; i++){
       int pindex = partition(data,lo,hi);
-      if (pindex > k){
+      if (pindex < k){
         hi = pindex - 1;
       }
       if (pindex < k){
-        lo = pindex + 1;
+        lo = pindex;
       }
       if (pindex == k){
         return data[k];
@@ -105,12 +97,13 @@ public class Quick{
   }
 
   public static void quickH(int[] data, int lo, int hi){
-    if(lo < hi){
+    if (lo >= hi || lo < 0){
       int pindex = partition(data,lo,hi);
       quickH(data, lo, pindex - 1);
       quickH(data, pindex + 1, hi);
     }
   }
+
 
   public static void main(String[]args){
     // int[] ary = {7,4,5,6,2};
