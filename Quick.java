@@ -38,15 +38,25 @@ public class Quick{
       pindex = start;
     }
 
-    // lo = start + 1;
+     lo = start + 1;
 
     while (lo != hi) {
-      if (data[lo] >= pivot){
-        if ((int)(Math.random() * 2) % 2 == 0) {
+      if (data[lo] > pivot){
         int n = data[lo];
         data[lo] = data[hi];
         data[hi] = n;
         hi --;
+      }
+      else if (data[lo] == pivot){
+        if ((int)(Math.random() * 2) % 2 == 0){
+          int n = data[lo];
+          data[lo] = data[hi];
+          data[hi] = n;
+          hi --;
+        }
+        else{
+          lo++;
+        }
       }
       else {
         lo ++;
@@ -69,7 +79,6 @@ public class Quick{
     //   output += data[i] + " ";
     // }
     // return output;
-  }
   return pindex;
 }
 
@@ -77,19 +86,18 @@ public class Quick{
   public static int quickselect(int[] data, int k){
     int lo = 0;
     int hi = data.length - 1;
-    for (int i = 0 ; i <data.length; i++){
-      int pindex = partition(data,lo,hi);
+    int pindex = 0;
+    // for (int i = 0 ; i <data.length; i++){
+    while (pindex != k){
+      pindex = partition(data,lo,hi);
       if (pindex < k){
-        hi = pindex - 1;
+        lo = pindex + 1;
       }
-      if (pindex < k){
-        lo = pindex;
-      }
-      if (pindex == k){
-        return data[k];
+      else {
+        hi = pindex -1;
       }
     }
-    return data[k];
+    return data[pindex];
   }
 
   public static void quicksort(int[] data){
@@ -97,12 +105,13 @@ public class Quick{
   }
 
   public static void quickH(int[] data, int lo, int hi){
-    if (lo >= hi || lo < 0){
+    if (lo >= hi){
+      return;
+    }
       int pindex = partition(data,lo,hi);
       quickH(data, lo, pindex - 1);
       quickH(data, pindex + 1, hi);
     }
-  }
 
 
   public static void main(String[]args){
