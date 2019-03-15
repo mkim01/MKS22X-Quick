@@ -10,13 +10,31 @@ public class Quick{
  *@return the index of the final position of the pivot element.
  */
   public static int partition(int[] data, int start, int end){
-    int pindex = (int)(Math.random() * (end - start)) + start;
+    // int pindex = (int)(Math.random() * (end - start)) + start;
     Random random = new Random();
-    int pivot = data[pindex];
-    data[pindex] = data[start];
-    data[start] = pivot;
-    pindex = start;
-    //start++;
+    //improvement part b
+    int pindex = 0;
+    int pivot = 0;
+    int lo = start;
+    int hi = end;
+    int mid = (start + end) / 2;
+    if ((hi > lo && lo > mid) || (mid > lo && lo > hi)){
+      pindex = lo;
+      pivot = data[lo];
+    }
+    else if ((lo > hi && hi > mid) || (mid > hi && hi > lo)){
+      pindex = hi;
+      pivot = data[hi];
+    }
+    else{
+      pindex = mid;
+      pivot = data[mid];
+    }
+
+    data[pindex] = data[lo];
+    data[lo] = pivot;
+    pindex = lo;
+
     // set pivot index to the beginning and loop through the array
     while (start != end){
       if (data[start] > pivot){
@@ -32,6 +50,9 @@ public class Quick{
           data[start] = data[end];
           data[end] = holder;
           end --;
+        }
+        else{
+          start++;
         }
       }
       else{
@@ -49,7 +70,6 @@ public class Quick{
       data[start] = pivot;
       pindex = start;
     }
-
 
     //debug
     // String output = "";
