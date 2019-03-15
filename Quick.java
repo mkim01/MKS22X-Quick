@@ -38,9 +38,9 @@ public class Quick{
       pindex = start;
     }
 
-     lo = start + 1;
+      lo = start + 1;
 
-    while (lo != hi) {
+    while (lo != hi && lo < hi && lo > 0) {
       if (data[lo] > pivot){
         int n = data[lo];
         data[lo] = data[hi];
@@ -66,12 +66,12 @@ public class Quick{
     if (data[lo] > pivot) {
       data[pindex] = data[lo - 1];
       data[lo - 1] = pivot;
-      pindex = lo - 1;
+      return lo - 1;
     }
-    else {
+    if (data[lo] <= pivot){
       data[pindex] = data[lo];
       data[lo] = pivot;
-      pindex = lo;
+      return lo;
     }
     // String output = "";
     // output += pivot + "|";
@@ -79,7 +79,7 @@ public class Quick{
     //   output += data[i] + " ";
     // }
     // return output;
-  return pindex;
+  return 0;
 }
 
 
