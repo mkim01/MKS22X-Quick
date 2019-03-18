@@ -82,7 +82,7 @@ public class Quick{
   return 0;
 }
 
-  private static String partitionDutch(int[] data, int lo, int hi){
+  private static int[] partitionDutch(int[] data, int lo, int hi){
     //choosing the pivot;
     int mid = (lo + hi) / 2;
     int pindex = 0;
@@ -99,46 +99,44 @@ public class Quick{
       pindex = mid;
       pivot = data[pindex];
     }
-
+    //System.out.println(Arrays.toString(data));
     // swapping the pindex value with the lowest value;
-    int holder = data[pindex];
-    data[pindex] = data[lo];
+    int holder = pivot;
+    pivot = data[lo];
     data[lo] = holder;
+    //System.out.println(Arrays.toString(data));
     //
     int lt = lo;
     int gt = hi;
     int i = lt + 1;
 
-    while (i != gt){
+    while (i != gt + 1){
       if (data[lt] > data[i]){
         int dholder = data[lt];
         data[lt] = data[i];
-        data[i] = holder;
+        data[i] = dholder;
         i++;
         lt++;
       }
       else if (data[lt] < data[i]){
         // swap with the highest value and decrease gt by 1;
-        int dholder = data[gt];
-        data[gt] = data[i];
-        data[i] = holder;
+        int dholder = data[i];
+        data[i] = data[gt];
+        data[gt] = dholder;
         gt --;
       }
       else{
         //if data[lt] == data[i] then just move onto next i;
         i++;
       }
+      System.out.println(Arrays.toString(data));
     }
-    int[] ary = new int[2];
-    ary[0]= lt;
-    ary[1] = gt;
-    String output = lt + " " + gt;
-    return output;
+    int[] ary = {lt, gt};
+    // System.out.println(Arrays.toString(data));
+    // String output = lt + " " + gt;
+    // return output;
+    return ary;
   }
-
-
-
-
 
 
   public static int quickselect(int[] data, int k){
