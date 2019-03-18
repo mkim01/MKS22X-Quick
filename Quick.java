@@ -82,9 +82,11 @@ public class Quick{
   return 0;
 }
 
-  private int[] partitionDutch(int[] data, int lo, int hi){
+  private static String partitionDutch(int[] data, int lo, int hi){
     //choosing the pivot;
     int mid = (lo + hi) / 2;
+    int pindex = 0;
+    int pivot = 0 ;
     if ((data[hi] > data[lo] && data[lo] > data[mid]) || (data[mid] > data[lo] && data[lo] > data[hi])){
       pindex = lo;
       pivot = data[pindex];
@@ -109,7 +111,7 @@ public class Quick{
 
     while (i != gt){
       if (data[lt] > data[i]){
-        int holder = data[lt];
+        int dholder = data[lt];
         data[lt] = data[i];
         data[i] = holder;
         i++;
@@ -117,7 +119,7 @@ public class Quick{
       }
       else if (data[lt] < data[i]){
         // swap with the highest value and decrease gt by 1;
-        int holder = data[gt];
+        int dholder = data[gt];
         data[gt] = data[i];
         data[i] = holder;
         gt --;
@@ -127,7 +129,15 @@ public class Quick{
         i++;
       }
     }
+    int[] ary = new int[2];
+    ary[0]= lt;
+    ary[1] = gt;
+    String output = lt + " " + gt;
+    return output;
   }
+
+
+
 
 
 
@@ -166,48 +176,43 @@ public class Quick{
 
 
   public static void main(String[]args){
-    // int[] ary = {7,4,5,6,2};
-    // int[] ary2 = {1,7,1,4,3};
-    // System.out.println(partition(ary2,0, 4));
 
-    // System.out.println(quickselect(ary, 0));
-    // System.out.println(quickselect(ary, 1));
-    // System.out.println(quickselect(ary, 2));
-    // System.out.println(quickselect(ary, 3));
-    // System.out.println(quickselect(ary, 4));
-    // System.out.println(partition(ary2,0, 4));
+    int[] test = {2,1,2,1,2,1,2,1,2,1,3,1,4,1,2,7,1};
+    System.out.println(partitionDutch(test,0,test.length-1));
+    // System.out.println("Size\t\tMax Value\tquick/builtin ratio ");
+    // int[]MAX_LIST = {1000000000,500,10};
+    // for(int MAX : MAX_LIST){
+    //   for(int size = 31250; size < 2000001; size*=2){
+    //     long qtime=0;
+    //     long btime=0;
+    //     //average of 5 sorts.
+    //     for(int trial = 0 ; trial <=5; trial++){
+    //       int []data1 = new int[size];
+    //       int []data2 = new int[size];
+    //       for(int i = 0; i < data1.length; i++){
+    //         data1[i] = (int)(Math.random()*MAX);
+    //         data2[i] = data1[i];
+    //       }
+    //       long t1,t2;
+    //       t1 = System.currentTimeMillis();
+    //       Quick.quicksort(data2);
+    //       t2 = System.currentTimeMillis();
+    //       qtime += t2 - t1;
+    //       t1 = System.currentTimeMillis();
+    //       Arrays.sort(data1);
+    //       t2 = System.currentTimeMillis();
+    //       btime+= t2 - t1;
+    //       if(!Arrays.equals(data1,data2)){
+    //         System.out.println("FAIL TO SORT!");
+    //         System.exit(0);
+    //       }
+    //     }
+    //     System.out.println(size +"\t\t"+MAX+"\t"+1.0*qtime/btime);
+    //   }
+    //   System.out.println();
+    //   }
 
-    System.out.println("Size\t\tMax Value\tquick/builtin ratio ");
-    int[]MAX_LIST = {1000000000,500,10};
-    for(int MAX : MAX_LIST){
-      for(int size = 31250; size < 2000001; size*=2){
-        long qtime=0;
-        long btime=0;
-        //average of 5 sorts.
-        for(int trial = 0 ; trial <=5; trial++){
-          int []data1 = new int[size];
-          int []data2 = new int[size];
-          for(int i = 0; i < data1.length; i++){
-            data1[i] = (int)(Math.random()*MAX);
-            data2[i] = data1[i];
-          }
-          long t1,t2;
-          t1 = System.currentTimeMillis();
-          Quick.quicksort(data2);
-          t2 = System.currentTimeMillis();
-          qtime += t2 - t1;
-          t1 = System.currentTimeMillis();
-          Arrays.sort(data1);
-          t2 = System.currentTimeMillis();
-          btime+= t2 - t1;
-          if(!Arrays.equals(data1,data2)){
-            System.out.println("FAIL TO SORT!");
-            System.exit(0);
-          }
-        }
-        System.out.println(size +"\t\t"+MAX+"\t"+1.0*qtime/btime);
-      }
-      System.out.println();
-      }
+
+
     }
 }
