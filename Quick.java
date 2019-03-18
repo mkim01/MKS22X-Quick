@@ -102,7 +102,31 @@ public class Quick{
     int holder = data[pindex];
     data[pindex] = data[lo];
     data[lo] = holder;
+    //
+    int lt = lo;
+    int gt = hi;
+    int i = lt + 1;
 
+    while (i != gt){
+      if (data[lt] > data[i]){
+        int holder = data[lt];
+        data[lt] = data[i];
+        data[i] = holder;
+        i++;
+        lt++;
+      }
+      else if (data[lt] < data[i]){
+        // swap with the highest value and decrease gt by 1;
+        int holder = data[gt];
+        data[gt] = data[i];
+        data[i] = holder;
+        gt --;
+      }
+      else{
+        //if data[lt] == data[i] then just move onto next i;
+        i++;
+      }
+    }
   }
 
 
