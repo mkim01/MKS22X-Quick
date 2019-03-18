@@ -82,6 +82,30 @@ public class Quick{
   return 0;
 }
 
+  private int[] partitionDutch(int[] data, int lo, int hi){
+    //choosing the pivot;
+    int mid = (lo + hi) / 2;
+    if ((data[hi] > data[lo] && data[lo] > data[mid]) || (data[mid] > data[lo] && data[lo] > data[hi])){
+      pindex = lo;
+      pivot = data[pindex];
+    }
+    else if ((data[lo] > data[hi] && data[hi] > data[mid]) || (data[mid] > data[hi] && data[hi] > data[lo])){
+      pindex = hi;
+      pivot = data[pindex];
+    }
+    else{
+      pindex = mid;
+      pivot = data[pindex];
+    }
+
+    // swapping the pindex value with the lowest value;
+    int holder = data[pindex];
+    data[pindex] = data[lo];
+    data[lo] = holder;
+
+  }
+
+
 
   public static int quickselect(int[] data, int k){
     int lo = 0;
@@ -112,6 +136,9 @@ public class Quick{
       quickH(data, lo, pindex - 1);
       quickH(data, pindex + 1, hi);
     }
+
+  // public static void
+
 
 
   public static void main(String[]args){
